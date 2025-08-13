@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Base de Jogos Acessíveis - Euconcegojogar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: #fff;
+    line-height: 1.6;
+    margin: 0;
+    padding: 1rem;
+  }
+  header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  a {
+    color: #0ff;
+  }
+  .game {
+    border-bottom: 1px solid #444;
+    padding: 1rem 0;
+  }
+  h1 {
+    font-size: 1.4rem;
+    color: #ff0;
+  }
+  .loading {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 1.2rem;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Base de Jogos Acessíveis</h1>
+  <p>Lista mantida pela equipe do Euconcegojogar</p>
+</header>
+<main id="content" role="main">
+  <p class="loading">Carregando lista...</p>
+</main>
+
+<script>
+const url = "http://simp.ly/p/nFCDHq";
+
+fetch(url)
+  .then(response => response.text())
+  .then(html => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, "text/html");
+    const article = doc.querySelector("article");
+
+    if (!article) {
+      document.getElementById("content").innerHTML = "<p>Não foi possível carregar a nota.</p>";
+      return;
+    }
+
+    const rawText = article.innerText;
+    const sections = rawText.split("\n").filter(line => line.trim() !== "");
+
+    let output = "";
+    let currentGame = "";
+
+    sections.forEach(line => {
+      if (line.startsWith("#")) {
+        if (currentGame) output += "</div>";
+        currentGame = line.replace(/^#+\s*/, "");
+        output += `<div class="game"><h1>${currentGame}</h1>`;
+      } else {
+        output += `<p>${line}</p>`;
+      }
+    });
+
+    if (currentGame) output += "</div>";
+
+    document.getElementById("content").innerHTML = output;
+  })
+  .catch(err => {
+    document.getElementById("content").innerHTML = `<p>Erro: ${err.message}</p>`;
+  });
+</script>
+</body>
+</html>
