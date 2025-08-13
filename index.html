@@ -14,21 +14,25 @@
     margin: auto;
     line-height: 1.6;
   }
-  pre {
+  h1, h2, h3, h4, h5, h6 {
+    color: #ffcc00;
+  }
+  a {
+    color: #4dabf7;
+  }
+  pre, code {
     background: #1e1e1e;
-    padding: 15px;
-    border-radius: 8px;
-    overflow-x: auto;
-    white-space: pre-wrap;
-    word-wrap: break-word;
+    padding: 5px 8px;
+    border-radius: 4px;
   }
 </style>
 </head>
 <body>
 <h1>Lista de Jogos Acessíveis</h1>
 <p>Carregando conteúdo...</p>
-<pre id="conteudo"></pre>
+<div id="conteudo"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
 const proxy = "https://api.allorigins.win/raw?url=";
 const url = "http://simp.ly/p/nFCDHq";
@@ -40,10 +44,10 @@ fetch(proxy + encodeURIComponent(url))
   })
   .then(data => {
     document.querySelector("p").style.display = "none";
-    document.getElementById("conteudo").textContent = data;
+    document.getElementById("conteudo").innerHTML = marked.parse(data);
   })
   .catch(err => {
-    document.getElementById("conteudo").textContent = "Erro: " + err.message;
+    document.getElementById("conteudo").innerHTML = "<pre>Erro: " + err.message + "</pre>";
   });
 </script>
 </body>
