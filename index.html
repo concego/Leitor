@@ -1,54 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Lista de Jogos Acessíveis</title>
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #121212;
-    color: #fff;
-    padding: 20px;
-    max-width: 800px;
-    margin: auto;
-    line-height: 1.6;
-  }
-  h1, h2, h3, h4, h5, h6 {
-    color: #ffcc00;
-  }
-  a {
-    color: #4dabf7;
-  }
-  pre, code {
-    background: #1e1e1e;
-    padding: 5px 8px;
-    border-radius: 4px;
-  }
+    body {
+        background-color: #121212;
+        color: #e0e0e0;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+    }
+    a {
+        color: #80cbc4;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+    .container {
+        max-width: 900px;
+        margin: auto;
+        padding: 20px;
+    }
+    pre {
+        background-color: #1e1e1e;
+        padding: 10px;
+        overflow-x: auto;
+    }
 </style>
 </head>
 <body>
-<h1>Lista de Jogos Acessíveis</h1>
-<p>Carregando conteúdo...</p>
-<div id="conteudo"></div>
+<div class="container" id="content">Carregando...</div>
 
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script>
-const proxy = "https://api.allorigins.win/raw?url=";
-const url = "http://simp.ly/p/nFCDHq";
-
-fetch(proxy + encodeURIComponent(url))
-  .then(response => {
-    if (!response.ok) throw new Error("Falha ao buscar o conteúdo");
-    return response.text();
-  })
-  .then(data => {
-    document.querySelector("p").style.display = "none";
-    document.getElementById("conteudo").innerHTML = marked.parse(data);
-  })
-  .catch(err => {
-    document.getElementById("conteudo").innerHTML = "<pre>Erro: " + err.message + "</pre>";
-  });
-</script>
-</body>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></
